@@ -8,9 +8,6 @@ const {JWT_SECRET} = require('../keys');
 const requireLogin= require('../middlwares/requireLogin')
 
 
-router.get('/protected',requireLogin,(req,res) =>{
-    res.send("Hello")
-})
 router.post('/signup',(req,res) => {
     const {name,email,password} = req.body
     if(!email || !password || !name ){

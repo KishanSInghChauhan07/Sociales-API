@@ -5,10 +5,6 @@ const Port = 5000;
 
 const {mongoUrl} = require('./keys')
 
-require('./models/users');
-app.use(express.json())
-app.use(require('./routes/auth'));
-
 mongoose.connect(mongoUrl,{
     useNewUrlParser:true,
     useUnifiedTopology:true
@@ -20,6 +16,12 @@ mongoose.connection.on('connected', () =>{
 mongoose.connection.on('error', (error) =>{
     console.log("error connecting to the mongodb",err);
 })
+
+require('./models/users');
+require('./models/post');
+app.use(express.json())
+app.use(require('./routes/auth'));
+app.use(require('./routes/post'));
 
 app.listen(Port,() => {
     console.log("server is running on :", Port);
