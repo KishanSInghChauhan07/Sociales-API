@@ -53,7 +53,8 @@ router.post('/signin',(req,res) =>{
         bcrypt.compare(password,savedUser.password)
         .then(matchPassword =>{
             if(matchPassword){
-                res.json({message:"successsfully signed In"})
+                const token = jwt.sign({_id:savedUser._id},JWT_SECRET)
+                res.json({token})
             }
             else{
                 return res.status(422).json({error:"Invalid email and password"})
