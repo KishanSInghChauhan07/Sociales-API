@@ -5,14 +5,14 @@ const Post = mongoose.model("Post")
 const requireLogin = require('../middlwares/requireLogin')
 
 router.post('/createpost',requireLogin,(req,res) => {
-    const {title,body} = req.body
-    if(!title || !body){
+    const {title,body,photo} = req.body
+    if(!title || !body || !photo){
         return res.status(401).json({error:"Add all fields"})
     }
     req.user.password = undefined
     const post = new Post({
         title,
-        body,
+        photo,
         postedBy:req.user
     })
     post.save().then( result =>{
